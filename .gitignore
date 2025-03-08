@@ -27,3 +27,4 @@ yarn-error.log*
 # Idea y VSCode configuraciones específicas (opcional)
 .idea/
 .vscode/
+/.vs
