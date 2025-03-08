@@ -1,0 +1,29 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Dependencias de node
+/node_modules/
+node_modules/
+
+# Directorio de salida de build de Vite
+/dist/
+/build/
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos del sistema operativo
+.DS_Store
+
+# Idea y VSCode configuraciones específicas (opcional)
+.idea/
+.vscode/
