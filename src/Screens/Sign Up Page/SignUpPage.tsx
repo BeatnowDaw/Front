@@ -1,16 +1,13 @@
-import React, {useState, ChangeEvent, FormEvent, FocusEvent, useEffect} from 'react';
-import './SignUpPage.css';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import logo from "../../assets/Logo.png";
-import logo2 from "../../assets/Frame 2.png";
-import  signInOrRegisterWithGoogle  from "../../Screens/Login Page/LoginPage";
-import CustomPopup from "../../components/Popup/CustomPopup";
+import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from "../../Layout/Header/Header";
-import LoginPage from "../../Screens/Login Page/LoginPage";
-import {useNavigate} from "react-router-dom";
-import VerifyPopup from "../../components/VerifyPopup/VerifyPopup";
+import logo2 from "../../assets/Frame 2.png";
 import LoadingPopup from "../../components/Loading/Loading";
+import CustomPopup from "../../components/Popup/CustomPopup";
+import VerifyPopup from "../../components/VerifyPopup/VerifyPopup";
+import discovery from '../../discovery.json';
+import './SignUpPage.css';
 
 const passwordRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,20}$/;
 
@@ -50,7 +47,7 @@ function SignUpPage() {
             return true;
         }
         try {
-            const response_email = await axios.get('http://217.182.70.161:6969/v1/api/users/check-email', {
+            const response_email = await axios.get(`${discovery.apiBaseUrl}/users/check-email`, {
                 params: { email }
             });
             return response_email.data.status === "ok";
@@ -65,7 +62,7 @@ function SignUpPage() {
             return true;
         }
         try {
-            const response_username = await axios.get('http://217.182.70.161:6969/v1/api/users/check-username', {
+            const response_username = await axios.get(`${discovery.apiBaseUrl}/users/check-username`, {
                 params: { username }
             });
             return response_username.data.status === "ok";
@@ -115,7 +112,7 @@ function SignUpPage() {
     const getToken = async () => {
         try {
             const response = await axios.post(
-                'http://217.182.70.161:6969/token',
+                `${discovery.apiBaseUrl}/token`,
                 new URLSearchParams({
                     grant_type: '',
                     username: username,
@@ -160,7 +157,7 @@ function SignUpPage() {
             message = 'This username is already taken.';
         } else {
             try {
-                const response = await axios.post('http://217.182.70.161:6969/v1/api/users/register', {
+                const response = await axios.post(`${discovery.apiBaseUrl}/users/register`, {
                     full_name,
                     username,
                     email,
@@ -177,7 +174,7 @@ function SignUpPage() {
                 try {
                     console.log(token);
                     await axios.post(
-                        'http://217.182.70.161:6969/v1/api/mail/send-confirmation/',
+                        `${discovery.apiBaseUrl}/mail/send-confirmation/`,
                         {},
                         {
                             headers: {

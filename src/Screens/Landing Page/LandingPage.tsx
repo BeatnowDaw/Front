@@ -1,15 +1,14 @@
 // src/components/LandingPage.tsx
 
 import React from 'react';
+import { Simulate } from "react-dom/test-utils";
 import { Link } from 'react-router-dom';
-import './LandingPage.css';
-import logo from '../../assets/Logo.png';
-import frame from '../../assets/Frame 2.png';
-import studio from '../../assets/Studio 2.jpeg';
-import troll from '../../assets/troll.jpg';
 import Header from "../../Layout/Header/Header";
+import logo from '../../assets/Logo.png';
+import studio from '../../assets/Studio 2.jpeg';
 import qr from '../../assets/qrbeatnow.png';
-import {Simulate} from "react-dom/test-utils";
+import discovery from '../../discovery.json';
+import './LandingPage.css';
 import click = Simulate.click;
 
 function Landing() {
@@ -17,7 +16,7 @@ function Landing() {
     const [clicks, setClicks] = React.useState(1);
     const [mobileDisplay, setMobileDisplay] = React.useState(false);
     function qrClick() {
-        window.open("http://217.182.70.161:6969/v1/api/download/android-apk/");
+        window.open(`${discovery.apiBaseUrl}/download/android-apk/`);
     }
 
     // Controlador de eventos para el evento resize

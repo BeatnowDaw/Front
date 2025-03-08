@@ -1,19 +1,20 @@
 // src/components/Upload.tsx
 
-import React, {FormEvent, useEffect, useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import '../Landing Page/LandingPage.css';
-import rightarrow from '../../assets/siguiente-pista.png';
-import './Upload.css';
-import GlobalSelect from "../../components/Select/GlobalSelect";
-import axios, {AxiosResponse} from "axios";
-import CustomPopup from '../../components/Popup/CustomPopup';
+import { useSpring } from "@react-spring/web";
+import axios, { AxiosResponse } from "axios";
+import React, { FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { animated } from 'react-spring';
 import { TagsInput } from "react-tag-input-component";
 import Header from "../../Layout/Header/Header";
-import { useTransition, animated } from 'react-spring';
-import Select from 'react-select'
+import rightarrow from '../../assets/siguiente-pista.png';
 import Loading from "../../components/Loading/Loading";
-import {useSpring} from "@react-spring/web";
+import CustomPopup from '../../components/Popup/CustomPopup';
+import GlobalSelect from "../../components/Select/GlobalSelect";
+import discovery from '../../discovery.json';
+import '../Landing Page/LandingPage.css';
+import './Upload.css';
+
 
 
 interface Beat {
@@ -113,7 +114,7 @@ function Upload() {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        const url = "http://217.182.70.161:6969/v1/api/users/users/me";
+        const url = `${discovery.apiBaseUrl}/users/users/me`;
         const headers = {
             accept: "application/json",
             Authorization: `Bearer ${token}`,
@@ -197,7 +198,7 @@ function Upload() {
     async function uploadBeat() {
         setIsLoading(true); // Añade esta línea
 
-        const url = "http://217.182.70.161:6969/v1/api/posts/upload";
+        const url = `${discovery.apiBaseUrl}/posts/upload`;
         const headers = {
             accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -313,7 +314,7 @@ function Upload() {
 
 
     async function getUserInfo(token: string): Promise<any> {
-        const url = 'http://217.182.70.161:6969/v1/api/users/users/me';
+        const url = `${discovery.apiBaseUrl}/users/users/me`;
         const headers = {
             'accept': 'application/json',
             'Authorization': `Bearer ${token}` // Corrected string interpolation

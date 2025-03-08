@@ -1,18 +1,18 @@
 // src/components/LoginPage.tsx
 
-import React, {useEffect, useState} from 'react';
-import './LoginPage.css';
-import logo from "../../assets/Logo.png";
-import logo2 from "../../assets/Frame 2.png";
-import {Link} from "react-router-dom";
-import {useNavigate} from 'react-router-dom';
-import axios, {AxiosResponse} from 'axios';
-import CustomPopup from "../../components/Popup/CustomPopup";
-import UserSingleton from "../../Model/UserSingleton";
+import axios, { AxiosResponse } from 'axios';
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../Layout/Header/Header";
-import {signInOrRegisterWithGoogle} from "../../Model/firebaseConfig";
+import UserSingleton from "../../Model/UserSingleton";
+import { signInOrRegisterWithGoogle } from "../../Model/firebaseConfig";
+import logo2 from "../../assets/Frame 2.png";
 import LoadingPopup from "../../components/Loading/Loading";
+import CustomPopup from "../../components/Popup/CustomPopup";
 import VerifyPopup from "../../components/VerifyPopup/VerifyPopup";
+import discovery from '../../discovery.json';
+import './LoginPage.css';
+
 
 
 function LoginPage() {
@@ -49,7 +49,7 @@ function LoginPage() {
             formData.append('username', usr);
             formData.append('password', pwd);
 
-            const response = await fetch('http://217.182.70.161:6969/v1/api/users/login', {
+            const response = await fetch(`${discovery.apiBaseUrl}/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -96,7 +96,7 @@ function LoginPage() {
             formData.append('password', password);
 
             // Llamar a la API de inicio de sesión con los datos del usuario
-            const response = await fetch('http://217.182.70.161:6969/token', {
+            const response = await fetch(`${discovery.apiBaseUrl}/token`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded' // Cambiar el tipo de contenido
@@ -128,7 +128,7 @@ function LoginPage() {
     }
 
     async function getUserInfo(): Promise<UserData | void> {
-        const url = 'http://217.182.70.161:6969/v1/api/users/users/me';
+        const url = `${discovery.apiBaseUrl}/v1/api/users/users/me`;
         const token = localStorage.getItem('token');
         const headers = {
             'accept': 'application/json',
@@ -226,7 +226,7 @@ function LoginPage() {
                             <div className={"socials"}>
                                 <button className={"googleSignIn"} onClick={signInOrRegisterWithGoogle} type={"button"}>
                                     <img className={"googleLogo"}
-                                         src="https://img.icons8.com/color/48/000000/google-logo.png"
+                                         src="https://commons.wikimedia.org/wiki/File:Google.png"
                                          alt="Google"/>
                                 </button>
                                 <button className={"twitterSignIn"} onClick={notAvailable} type={"button"}>

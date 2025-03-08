@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 //import BeatItem from "../../../components/BeatItems/BeatItem";
 import UserSingleton from "../../../Model/UserSingleton"; // Asegúrate de importar correctamente UserSingleton
+import discovery from '../../discovery.json';
 
 interface Beat {
   img: string;
@@ -17,7 +18,7 @@ const ListBeat: React.FC = () => {
       try {
         const user = UserSingleton.getInstance();
         const username = user.getUsername();
-        const response = await fetch(`http://217.182.70.161:6969/v1/api/posts/user/${username}`);
+        const response = await fetch(`${discovery.apiBaseUrl}/v1/api/posts/user/${username}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
