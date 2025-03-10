@@ -47,32 +47,32 @@ function SignUpPage() {
 
     const checkEmailAvailability = async (email: string) => {
         if (!email) {
-            return true;
-        }
-        try {
-            const response_email = await axios.get('http://217.182.70.161:6969/v1/api/users/check-email', {
-                params: { email }
-            });
-            return response_email.data.status === "ok";
-        } catch (error) {
-            console.error('Error checking email:', error);
             return false;
         }
+        //try {
+        //    const response_email = await axios.get('http://217.182.70.161:6969/v1/api/users/check-email', {
+        //        params: { email }
+        //    });
+        //    return response_email.data.status === "ok";
+        //} catch (error) {
+        //    console.error('Error checking email:', error);
+        //    return false;
+        //}
     };
 
     const checkUsernameAvailability = async (username: string) => {
         if (!username) {
-            return true;
-        }
-        try {
-            const response_username = await axios.get('http://217.182.70.161:6969/v1/api/users/check-username', {
-                params: { username }
-            });
-            return response_username.data.status === "ok";
-        } catch (error) {
-            console.error('Error checking username:', error);
             return false;
         }
+        //try {
+        //    const response_username = await axios.get('http://217.182.70.161:6969/v1/api/users/check-username', {
+        //        params: { username }
+        //    });
+        //    return response_username.data.status === "ok";
+        //} catch (error) {
+        //    console.error('Error checking username:', error);
+        //    return false;
+        //}
     };
 
     const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -83,9 +83,9 @@ function SignUpPage() {
     const handleEmailBlur = async (event: FocusEvent<HTMLInputElement>) => {
         const email = event.target.value;
         if (email) {
-            const isAvailable = await checkEmailAvailability(email);
-            setEmailAvailable(isAvailable);
-            if (!isAvailable) {
+            //const isAvailable = await checkEmailAvailability(email);
+            setEmailAvailable(true);
+            if (!true) {
                 setMessage('This email is already registered.');
                 setShowPopup(true);
             }
@@ -95,9 +95,9 @@ function SignUpPage() {
     const handleUsernameBlur = async (event: FocusEvent<HTMLInputElement>) => {
         const username = event.target.value;
         if (username) {
-            const isAvailable = await checkUsernameAvailability(username);
-            setUsernameAvailable(isAvailable);
-            if (!isAvailable) {
+            //const isAvailable = await checkUsernameAvailability(username);
+            setUsernameAvailable(true);
+            if (!true) {
                 setMessage('This username is already taken.');
                 setShowPopup(true);
             }
@@ -112,31 +112,31 @@ function SignUpPage() {
         setConfirmPassword(event.target.value);
     };
 
-    const getToken = async () => {
-        try {
-            const response = await axios.post(
-                'http://217.182.70.161:6969/token',
-                new URLSearchParams({
-                    grant_type: '',
-                    username: username,
-                    password: password,
-                    scope: '',
-                    client_id: '',
-                    client_secret: ''
-                }),
-                {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'accept': 'application/json'
-                    }
-                }
-            );
-            return response.data.access_token;
-        } catch (error) {
-            console.error('Error obtaining token:', error);
-            return null;
-        }
-    };
+    //const getToken = async () => {
+    //    try {
+    //        const response = await axios.post(
+    //            'http://217.182.70.161:6969/token',
+    //            new URLSearchParams({
+    //                grant_type: '',
+    //                username: username,
+     //               password: password,
+    //                scope: '',
+    //                client_id: '',
+    //                client_secret: ''
+    //            }),
+    //            {
+    //                headers: {
+    //                    'Content-Type': 'application/x-www-form-urlencoded',
+    //                    'accept': 'application/json'
+    //                }
+    //            }
+    //        );
+    //        return response.data.access_token;
+    //    } catch (error) {
+    //        console.error('Error obtaining token:', error);
+    //        return null;
+    //    }
+    //};
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -161,42 +161,40 @@ function SignUpPage() {
         } else {
             try {
                 const response = await axios.post('http://217.182.70.161:6969/v1/api/users/register', {
-                    full_name,
                     username,
                     email,
                     password,
-                    is_active
                 });
 
                 console.log(response.data);
 
                 // Obtain token
-                setToken(await getToken());
+                //setToken(await getToken());
 
                 // Send confirmation email
-                try {
-                    console.log(token);
-                    await axios.post(
-                        'http://217.182.70.161:6969/v1/api/mail/send-confirmation/',
-                        {},
-                        {
-                            headers: {
-                                'accept': 'application/json',
-                                'Authorization': `Bearer ${token}`
-                            }
-                        }
-                    );
-                    setRegistrationError('');
-                    setShowLoading(false);
-                    setShowVerify(true);
-                    return;
-                } catch (emailError) {
-                    console.error('Error sending confirmation email:', emailError);
-                    setRegistrationError('');
-                    setShowLoading(false);
-                    setShowVerify(true);
-                    return;
-                }
+                //try {
+                 //   console.log(token);
+                //    await axios.post(
+                 //       'http://217.182.70.161:6969/v1/api/mail/send-confirmation/',
+                 //       {},
+                //        {
+                //            headers: {
+                //                'accept': 'application/json',
+                 //               'Authorization': `Bearer ${token}`
+                 ////           }
+                 //       }
+                 //   );
+                 //   setRegistrationError('');
+                ////    setShowLoading(false);
+                //    setShowVerify(true);
+                 //   return;
+                //} catch (emailError) {
+                //    console.error('Error sending confirmation email:', emailError);
+                //    setRegistrationError('');
+                //    setShowLoading(false);
+                //    setShowVerify(true);
+                //    return;
+                //}
             } catch (error) {
                 console.error('Error during registration:', error);
                 message = 'Registration failed. Please try again.';
