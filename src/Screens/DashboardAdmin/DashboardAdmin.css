@@ -1,125 +1,115 @@
+.dashboard {
+    display: flex;
+    flex-direction: row;
 
-.leftSlide {
-    flex-shrink: 0; /* Evita que el contenedor de la barra lateral se reduzca */
+    background-color: #111111;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #3C0F4B; /* Color de fondo acorde al diseño */
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #8731E4; /* Color de borde en línea con el diseño */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #8731E4;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo con transparencia */
+}
+
+button {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background-color: #3C0F4B;
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #8731E4;
+    transform: scale(1.05);
+}
+
+input, select {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #8731E4;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+h2, h3 {
+    color: #8731E4;
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
 }
 
 .content {
-    margin-left: 100px; /* Añade margen izquierdo para evitar la superposición */
-    padding: 20px; /* Añade padding para separar el contenido del borde */
-    flex-grow: 1; /* Permite que el contenido principal ocupe el resto del espacio */
+    margin-left: 260px;
+    padding: 20px;
+    flex-grow: 1;
 }
 
-.home {
-    font-weight: bold;
-    font-size: 60px; /* Ajusta el tamaño de la fuente */
-    margin-bottom: 20px; /* Añade margen inferior para separar el título del contenido */
-}
 
-.card {
-    transition: background-color 0.3s, transform 0.3s;
-    /* Add shadows to create the "card" effect */
-    border-radius: 25px !important;
-    padding: 15px;
-    margin: 20px 20px 20px 0;
-    background-color: #3C0F4B !important;
-    width: fit-content;
-    min-width: fit-content !important;
-}
 
-/* On mouse-over, add a deeper shadow */
 .card:hover {
-
-    background-color: #8731E4 !important;
-    cursor: pointer;
-}
-
-.post-picture {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 20px;
-}
-.section-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: start;
-}
-
-/* src/pages/Dashboard/Dashboard.css */
-
-.hidden {
-    visibility: hidden;
-}
-
-
-.cards-container {
-    display: flex;
-    justify-content: start;
-    width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho de la pantalla */
-    overflow-x: auto; /* Habilita el desplazamiento horizontal */
-    white-space: nowrap; /* Evita que los elementos se envuelvan a la siguiente línea */
-    margin-bottom: 25px;
-    padding: 1%;
-    scrollbar-color: #555 #222; /* Cambia el color de la barra de desplazamiento */
-}
-
-.card h4, .card p {
-    margin: 10px 0 0 10px;
-    color: #fff;
+    background-color: #8731E4;
+    transform: scale(1.05);
 }
 
 .uploadButton {
-    z-index: 1000;
     position: fixed;
     right: 50px;
     bottom: 50px;
     background-color: #8731e4;
-    color: #fff;
+    color: white;
     border: none;
-    margin: 10px;
     border-radius: 100%;
     cursor: pointer;
     font-size: 72px;
     transition: background-color 0.3s, transform 0.3s;
     width: 150px;
     height: 150px;
-    box-shadow: 0 10px 10px rgb(0, 0, 0);
-}
-
-.uploadButton:hover {
-    transform: scale(1.1);
-    background-color: #a05ce6;
-
-}
-
-.clock-and-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 7%;
-
-
-}
-
-.dash-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.rt-clock {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    margin-right: 6%;
-    font-size: 76px;
-
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 
-.section-container {
-    scrollbar-color: #888 #f5f5f5; /* Cambia el color de la barra de desplazamiento */
-    justify-content: start;
-    max-width: 100%;
-}

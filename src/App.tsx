@@ -10,6 +10,7 @@ import SignUpPage from "./Screens/Sign Up Page/SignUpPage";
 import './App.css';
 import Upload from "./Screens/UploadScreens/Upload";
 import Dashboard from "./Screens/DashboardPage/Dashboard";
+import DashboardAdmin from './Screens/DashboardAdmin/DashboardAdmin';
 import CustomPopup from './components/Popup/CustomPopup';
 import ForgotPwdPage from "./Screens/ForgotPwd Page/ForgotPwdPage";
 
@@ -62,7 +63,8 @@ function App() {
                 <Route path="*" element={<Landing />} />
                 <Route path="/Upload" element={<Upload />} />
                 <Route path={"/Dashboard"} element={<Dashboard />} />
-                <Route path={"/ForgotPwd"} element={<ForgotPwdPage />} />
+                <Route path={"/DashboardAdmin"} element={<DashboardAdmin />} />
+                <Route path={"/ForgotPwd"} element={<ForgotPwdPage />} />  
             </Routes>
         </Router>
     );

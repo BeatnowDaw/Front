@@ -43,7 +43,7 @@ function LoginPage() {
             if (response.ok) {
                 localStorage.setItem("token", data.token); // Guarda el token
                 localStorage.setItem("role", data.role);   // Guarda el rol (admin/user)
-    
+                
                 // Redirige según el rol
                 if (data.role === "admin") {
                     navigate('/DashboardAdmin');
