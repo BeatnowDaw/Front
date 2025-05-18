@@ -60,7 +60,7 @@ function Dashboard() {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        api.get(`/users/users/me`, {
+        api.get(`/users/me`, {
                     headers: {
                     accept: "application/json",
                     Authorization: `Bearer ${token}`,

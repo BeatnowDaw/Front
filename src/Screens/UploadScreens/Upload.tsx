@@ -113,7 +113,7 @@ function Upload() {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        const url = `/users/users/me`;
+        const url = `/users/me`;
         const headers = {
             accept: "application/json",
             Authorization: `Bearer ${token}`,
@@ -313,7 +313,7 @@ function Upload() {
 
 
     async function getUserInfo(token: string): Promise<any> {
-        const url = `/users/users/me`;
+        const url = `/users/me`;
         const headers = {
             'accept': 'application/json',
             'Authorization': `Bearer ${token}` // Corrected string interpolation

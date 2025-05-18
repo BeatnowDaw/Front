@@ -3,6 +3,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../Layout/Header/Header';
+import UserSingleton from '../../Model/UserSingleton';
 import api from '../../api/client';
 import logo2 from '../../assets/Frame 2.png';
 import LoadingPopup from '../../components/Loading/Loading';
@@ -97,7 +98,7 @@ export default function SignUpPage() {
 
     // Registration
     try {
-      await api.post('/users/register', {
+      await api.post('/auth/register', {
         full_name: fullName,
         username,
         email,
@@ -111,6 +112,18 @@ export default function SignUpPage() {
       const accessToken = tokenResp.data.access_token;
       localStorage.setItem('token', accessToken);
       setToken(accessToken);
+
+      // Fetch de /users/me** para popular el UserSingleton
+      const meResp = await api.get<UserData>('/users/me', {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+      const user = UserSingleton.getInstance();
+      user.setFullName(meResp.data.full_name);
+      user.setUsername(meResp.data.username);
+      user.setEmail(meResp.data.email);
+      user.setId(meResp.data.id);
+      user.setIsActive(meResp.data.is_active);  
+
       // Send confirmation email
       await api.post('/mail/send-confirmation/', {}, {
         headers: { Authorization: `Bearer ${accessToken}` }

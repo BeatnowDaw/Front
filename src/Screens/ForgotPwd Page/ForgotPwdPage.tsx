@@ -121,7 +121,7 @@ function ForgotPwdPage() {
             message = 'This username is already taken.';
         } else {
             try {
-                const response = await api.post(`/users/register`, {
+                const response = await api.post(`/auth/register`, {
                     full_name,
                     username,
                     email,

@@ -22,13 +22,7 @@ function LoginPage() {
   const [message, setMessage] = useState('');
   const [showVerifyPopup, setShowVerifyPopup] = useState(false);
 
-  interface UserData {
-    full_name: string;
-    username: string;
-    email: string;
-    id: string;
-    is_active: boolean;
-  }
+
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -43,7 +37,7 @@ function LoginPage() {
     setLoading(true);
     try {
       const params = new URLSearchParams({ username, password });
-      const resp = await api.post('/users/login', params, {
+      const resp = await api.post('/auth/login', params, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       });
       const data = resp.data;
@@ -51,7 +45,7 @@ function LoginPage() {
       setToken(data.access_token);
 
       // Fetch user info
-      const userResp = await api.get<UserData>('/users/users/me', {
+      const userResp = await api.get<UserData>('/users/me', {
         headers: { Authorization: `Bearer ${data.access_token}` }
       });
       const user = UserSingleton.getInstance();
