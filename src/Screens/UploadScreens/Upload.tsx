@@ -1,17 +1,16 @@
 // src/components/Upload.tsx
 
 import { useSpring } from "@react-spring/web";
-import axios, { AxiosResponse } from "axios";
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { animated } from 'react-spring';
 import { TagsInput } from "react-tag-input-component";
 import Header from "../../Layout/Header/Header";
+import api from "../../api/client";
 import rightarrow from '../../assets/siguiente-pista.png';
 import Loading from "../../components/Loading/Loading";
 import CustomPopup from '../../components/Popup/CustomPopup';
 import GlobalSelect from "../../components/Select/GlobalSelect";
-import discovery from '../../discovery.json';
 import '../Landing Page/LandingPage.css';
 import './Upload.css';
 
@@ -114,12 +113,12 @@ function Upload() {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        const url = `${discovery.apiBaseUrl}/users/users/me`;
+        const url = `/users/users/me`;
         const headers = {
             accept: "application/json",
             Authorization: `Bearer ${token}`,
         };
-        axios
+        api
             .get(url, { headers })
             .then((response) => {
                 if (response.status === 200) {
@@ -198,7 +197,7 @@ function Upload() {
     async function uploadBeat() {
         setIsLoading(true); // Añade esta línea
 
-        const url = `${discovery.apiBaseUrl}/posts/upload`;
+
         const headers = {
             accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -216,7 +215,7 @@ function Upload() {
         formData.append('title', beat.beatTitle);
 
         try {
-            const response = await axios.post(url, formData, { headers });
+            const response = await api.post('/posts/upload', formData, { headers });
             if (response.status === 200) {
                 console.log('Beat uploaded successfully.');
                 setMessage("Beat uploaded successfully.");
@@ -314,14 +313,14 @@ function Upload() {
 
 
     async function getUserInfo(token: string): Promise<any> {
-        const url = `${discovery.apiBaseUrl}/users/users/me`;
+        const url = `/users/users/me`;
         const headers = {
             'accept': 'application/json',
             'Authorization': `Bearer ${token}` // Corrected string interpolation
         };
 
         try {
-            const response: AxiosResponse = await axios.get(url, { headers });
+            const response = await api.get(url, { headers });
             if (response.status === 200) {
                 setUsername(response.data.username);
                 console.log('Información del usuario:', response.data);

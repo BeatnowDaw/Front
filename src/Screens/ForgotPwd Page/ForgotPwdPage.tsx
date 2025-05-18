@@ -1,10 +1,9 @@
-import axios from 'axios';
 import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from "../../Layout/Header/Header";
+import api from '../../api/client';
 import logo2 from "../../assets/Frame 2.png";
 import CustomPopup from "../../components/Popup/CustomPopup";
-import discovery from '../../discovery.json';
 import './ForgotPwdPage.css';
 
 const passwordRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,20}$/;
@@ -40,7 +39,7 @@ function ForgotPwdPage() {
             return true;
         }
         try {
-            const response_email = await axios.get(`${discovery.apiBaseUrl}/users/check-email`, {
+            const response_email = await api.get(`/users/check-email`, {
                 params: { email }
             });
             return response_email.data.status === "ok";
@@ -55,7 +54,7 @@ function ForgotPwdPage() {
             return true;
         }
         try {
-            const response_username = await axios.get(`${discovery.apiBaseUrl}/users/check-username`, {
+            const response_username = await api.get(`/users/check-username`, {
                 params: { username }
             });
             return response_username.data.status === "ok";
@@ -122,7 +121,7 @@ function ForgotPwdPage() {
             message = 'This username is already taken.';
         } else {
             try {
-                const response = await axios.post(`${discovery.apiBaseUrl}/users/register`, {
+                const response = await api.post(`/users/register`, {
                     full_name,
                     username,
                     email,
