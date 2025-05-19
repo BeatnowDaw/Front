@@ -1,13 +1,10 @@
-import React, { useState, ChangeEvent, FormEvent, FocusEvent } from 'react';
-import './ForgotPwdPage.css';
+import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import logo from "../../assets/Logo.png";
-import logo2 from "../../assets/Frame 2.png";
-import { signInOrRegisterWithGoogle } from "../../Model/firebaseConfig";
-import CustomPopup from "../../components/Popup/CustomPopup";
 import Header from "../../Layout/Header/Header";
-import LoginPage from "../../Screens/Login Page/LoginPage";
+import api from '../../api/client';
+import logo2 from "../../assets/Frame 2.png";
+import CustomPopup from "../../components/Popup/CustomPopup";
+import './ForgotPwdPage.css';
 
 const passwordRequirements = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,20}$/;
 
@@ -42,7 +39,7 @@ function ForgotPwdPage() {
             return true;
         }
         try {
-            const response_email = await axios.get('http://217.182.70.161:6969/v1/api/users/check-email', {
+            const response_email = await api.get(`/users/check-email`, {
                 params: { email }
             });
             return response_email.data.status === "ok";
@@ -57,7 +54,7 @@ function ForgotPwdPage() {
             return true;
         }
         try {
-            const response_username = await axios.get('http://217.182.70.161:6969/v1/api/users/check-username', {
+            const response_username = await api.get(`/users/check-username`, {
                 params: { username }
             });
             return response_username.data.status === "ok";
@@ -124,7 +121,7 @@ function ForgotPwdPage() {
             message = 'This username is already taken.';
         } else {
             try {
-                const response = await axios.post('http://217.182.70.161:6969/v1/api/users/register', {
+                const response = await api.post(`/auth/register`, {
                     full_name,
                     username,
                     email,

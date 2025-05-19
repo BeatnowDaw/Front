@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../../Layout/Header/Header";
 import LeftSlide from "../../Layout/LeftSlide/LeftSlide";
 import UserSingleton from "../../Model/UserSingleton";
-import "./Dashboard.css";
+import api from '../../api/client';
 import CardDetails from "../../components/CardDetails/CardDetails";
 import CustomPopup from "../../components/Popup/CustomPopup";
-import {useNavigate} from "react-router-dom";
+import "./Dashboard.css";
 
 interface Post {
     _id: string;
@@ -41,7 +41,7 @@ function Dashboard() {
         const username = UserSingleton.getInstance().getUsername();
         const token = localStorage.getItem("token");
 
-        axios.get(`http://217.182.70.161:6969/v1/api/users/posts/${username}`, {
+        api.get(`/users/posts/${username}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -60,13 +60,12 @@ function Dashboard() {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        const url = "http://217.182.70.161:6969/v1/api/users/users/me";
-        const headers = {
-            accept: "application/json",
-            Authorization: `Bearer ${token}`,
-        };
-        axios
-            .get(url, { headers })
+        api.get(`/users/me`, {
+                    headers: {
+                    accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                  }
+                })
             .then((response) => {
                 if (response.status === 200) {
 

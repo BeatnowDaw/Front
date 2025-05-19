@@ -1,41 +1,56 @@
 import React, { useEffect, useState } from "react";
-//import BeatItem from "../../../components/BeatItems/BeatItem";
-import UserSingleton from "../../../Model/UserSingleton"; // Asegúrate de importar correctamente UserSingleton
+import UserSingleton from "../../../Model/UserSingleton";
+import api from "../../../api/client";
 
 interface Beat {
-  img: string;
+  _id: string;
   title: string;
   genre: string;
-  date: string;
+  publication_date: string;
+
 }
 
 const ListBeat: React.FC = () => {
   const [beats, setBeats] = useState<Beat[]>([]);
 
   useEffect(() => {
-    async function fetchBeats() {
+    const fetchBeats = async () => {
       try {
-        const user = UserSingleton.getInstance();
-        const username = user.getUsername();
-        const response = await fetch(`http://217.182.70.161:6969/v1/api/posts/user/${username}`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setBeats(data);
+        const username = UserSingleton.getInstance().getUsername();
+        const token = localStorage.getItem("token");
+
+        const response = await api.get<Beat[]>(`/posts/user/${username}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setBeats(response.data);
       } catch (error) {
         console.error("Failed to fetch beats:", error);
       }
-    }
+    };
 
     fetchBeats();
-  }, []); // El array vacío [] asegura que este efecto se ejecute solo una vez después del primer renderizado
+  }, []); 
 
   return (
     <div>
       <h1>Beats List</h1>
+      {beats.length === 0 ? (
+        <p>No tienes beats publicados aún.</p>
+      ) : (
+        <ul>
+          {beats.map(beat => (
+            <li key={beat._id}>
+              <strong>{beat.title}</strong> — {beat.genre} —{" "}
+              {new Date(beat.publication_date).toLocaleDateString()}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-}
+};
 
 export default ListBeat;
