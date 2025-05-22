@@ -28,7 +28,7 @@ function LeftSlide() {
         {isVisible && (
             <>
               <ul className="menu">
-                <li className="menu-item slide-in"><i className="fa-solid fa-house"></i>Home</li>
+                <li className="menu-item slide-in"><i className="fa-solid fa-house"></i><Link to="/Home" className={`uploadBeat ${isVisible ? 'slide-in' : 'slide-out'}`}>Upload</Link></li>
                 <li className="menu-item slide-in"><i className="fa-solid fa-music"></i>Beats</li>
                 <li className="menu-item slide-in"><i className="fa-solid fa-chart-column"></i>Stats</li>
               </ul>

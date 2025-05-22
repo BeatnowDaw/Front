@@ -73,8 +73,9 @@ class UserSingleton {
 
 
     private generatePhotoProfileUrl(): string {
-        return `http://172.203.251.28/beatnow/${this.id}/photo_profile/photo_profile.png`;
+        return `http://127.0.0.1/beatnow/${this.id}/photo_profile/photo_profile.png`;
     }
+    
 
     public clear() {
         this.full_name = '';

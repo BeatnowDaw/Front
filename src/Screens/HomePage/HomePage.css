@@ -1,0 +1,65 @@
+/* Contenedor principal del feed estilo TikTok */
+.tiktok-feed {
+    display: flex;
+    flex-direction: column;
+    background-color: #0f0f0f;
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Contenido principal del feed */
+  .feed-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 2rem;
+  }
+  
+  /* Rejilla de videos tipo TikTok */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /* Cada tarjeta individual de video */
+  .video-card {
+    background-color: #1f1f1f;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .video-card:hover {
+    transform: scale(1.03);
+    background-color: #2e2e2e;
+  }
+  
+  /* Imagen en la tarjeta */
+  .video-thumbnail {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+  
+  /* Información debajo del thumbnail */
+  .video-meta {
+    padding: 0.75rem 1rem;
+  }
+  
+  .video-meta h4 {
+    font-size: 1.1rem;
+    margin: 0;
+    color: #fff;
+  }
+  
+  .video-meta p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 4px;
+  }
+  

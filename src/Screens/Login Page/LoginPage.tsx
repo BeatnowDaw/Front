@@ -45,15 +45,25 @@ function LoginPage() {
       setToken(data.access_token);
 
       // Fetch user info
-      const userResp = await api.get<UserData>('/users/me', {
+      const userResp = await api.get('/users/me', {
         headers: { Authorization: `Bearer ${data.access_token}` }
       });
+      
+      const userData: UserData = {
+        ...userResp.data,
+        id: userResp.data.id
+
+      };
+      
       const user = UserSingleton.getInstance();
-      user.setFullName(userResp.data.full_name);
-      user.setUsername(userResp.data.username);
-      user.setEmail(userResp.data.email);
-      user.setId(userResp.data.id);
-      user.setIsActive(userResp.data.is_active);
+      user.setFullName(userData.full_name);
+      user.setUsername(userData.username);
+      user.setEmail(userData.email);
+      user.setId(userData.id);
+      user.setIsActive(userData.is_active);
+      console.log(user.getId());
+      // Puedes continuar con otros setters si tu singleton los tiene:
+      
 
       setLoading(false);
       if (!userResp.data.is_active) {
