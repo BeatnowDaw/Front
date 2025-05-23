@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../../Layout/Header/Header';
 import UserSingleton from '../../Model/UserSingleton';
 import { signInOrRegisterWithGoogle } from '../../Model/firebaseConfig';
@@ -21,8 +22,6 @@ function LoginPage() {
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState('');
   const [showVerifyPopup, setShowVerifyPopup] = useState(false);
-
-
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -44,32 +43,27 @@ function LoginPage() {
       localStorage.setItem('token', data.access_token);
       setToken(data.access_token);
 
-      // Fetch user info
       const userResp = await api.get('/users/me', {
         headers: { Authorization: `Bearer ${data.access_token}` }
       });
-      
+
       const userData: UserData = {
         ...userResp.data,
         id: userResp.data.id
-
       };
-      
+
       const user = UserSingleton.getInstance();
       user.setFullName(userData.full_name);
       user.setUsername(userData.username);
       user.setEmail(userData.email);
       user.setId(userData.id);
       user.setIsActive(userData.is_active);
-      console.log(user.getId());
-      // Puedes continuar con otros setters si tu singleton los tiene:
-      
 
       setLoading(false);
       if (!userResp.data.is_active) {
         setShowVerifyPopup(true);
       } else {
-        navigate('/Dashboard', { state: { token: data.access_token } });
+        navigate('/dashboard', { state: { token: data.access_token } });
       }
     } catch (err: any) {
       setLoading(false);
@@ -91,75 +85,141 @@ function LoginPage() {
     setShowPopup(true);
   };
 
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (delay = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: 'easeOut',
+        delay
+      }
+    })
+  };
+
+  const float = {
+    animate: {
+      y: [0, -10, 0],
+      transition: {
+        duration: 3,
+        ease: 'easeInOut',
+        repeat: Infinity
+      }
+    }
+  };
+
   return (
     <div className="app">
       {showPopup && <CustomPopup message={message} onClose={handleClose} />}
       {loading && <LoadingPopup message="" />}
       {showVerifyPopup && token && <VerifyPopup token={token} />}
       <Header />
+
       <div className="centerDiv-Login">
         <main>
-          <section className="logoSect">
-            <img className="logoPngCenter" src={logo2} alt="Logo" />
-          </section>
+          <motion.section
+            className="logoSect"
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={0.2}
+          >
+            <motion.img
+              className="logoPngCenter"
+              src={logo2}
+              alt="Logo"
+              variants={float}
+              animate="animate"
+            />
+          </motion.section>
+
           <div className="dividerVert" />
-          <section className="loginContent">
-            <h2>Welcome back!</h2>
-            <p>Please sign into your account</p>
-            <form className="login-form" onSubmit={handleSubmit}>
-              <input
+
+          <motion.section
+            className="loginContent"
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={0.3}
+          >
+            <motion.h2 variants={fadeUp} custom={0.3}>Welcome back!</motion.h2>
+            <motion.p variants={fadeUp} custom={0.4}>Please sign into your account</motion.p>
+
+            <motion.form
+              className="login-form"
+              onSubmit={handleSubmit}
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              custom={0.5}
+            >
+              <motion.input
                 type="text"
                 value={username}
                 onChange={handleUsernameChange}
                 placeholder="Username"
+                variants={fadeUp}
+                custom={0.6}
               />
-              <input
+              <motion.input
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
                 placeholder="Password"
+                variants={fadeUp}
+                custom={0.7}
               />
               <Link className="forgotPwd" to="/forgotPwd">
                 Forgot password?
               </Link>
-              <button className="submitButton" type="submit">
+              <motion.button
+                className="submitButton"
+                type="submit"
+                variants={fadeUp}
+                custom={0.8}
+              >
                 Sign in
-              </button>
+              </motion.button>
+
               <div className="dividerHori" />
-              <div className="socials">
-                <button
-                  className="googleSignIn"
-                  onClick={signInOrRegisterWithGoogle}
-                  type="button"
-                >
+
+              <motion.div
+                className="socials"
+                variants={fadeUp}
+                custom={0.9}
+              >
+                <button className="googleSignIn" onClick={signInOrRegisterWithGoogle} type="button">
                   <img
                     className="googleLogo"
-                    src="https://commons.wikimedia.org/wiki/File:Google.png"
+                    src="https://th.bing.com/th/id/OIP.HgH-NjiOdFOrkmwjsZCCfAHaHl?w=166&h=180&c=7&r=0&o=5&pid=1.7"
+                    width={40}
                     alt="Google"
                   />
                 </button>
-                <button
-                  className="twitterSignIn"
-                  onClick={notAvailable}
-                  type="button"
-                >
+                <button className="twitterSignIn" onClick={notAvailable} type="button">
                   <img
                     className="twitterLogo"
                     src="https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png"
                     alt="Twitter"
                   />
                 </button>
-              </div>
-              <div className="signUpText">
+              </motion.div>
+
+              <motion.div
+                className="signUpText"
+                variants={fadeUp}
+                custom={1}
+              >
                 <h6>
                   Don't have an account? <br />
                   <Link className="signUp" to="/register">
                     Sign up
                   </Link>
                 </h6>
-              </div>
-            </form>
-          </section>
+              </motion.div>
+            </motion.form>
+          </motion.section>
         </main>
       </div>
     </div>

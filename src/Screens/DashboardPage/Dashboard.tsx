@@ -5,6 +5,7 @@ import Header from "../../Layout/Header/Header";
 import LeftSlide from "../../Layout/LeftSlide/LeftSlide";
 import UserSingleton from "../../Model/UserSingleton";
 import api from '../../api/client';
+
 import CardDetails from "../../components/CardDetails/CardDetails";
 import CustomPopup from "../../components/Popup/CustomPopup";
 import "./Dashboard.css";
@@ -24,6 +25,30 @@ interface Post {
     audio_format: string;
     cover_format: string;
 }
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+      delay,
+    },
+  }),
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -150,12 +175,21 @@ function Dashboard() {
                     <h1 className="rt-clock">{currentTime.toLocaleTimeString('en-US', { hour12: false })}</h1>
                 </div>
 
-                {posts.length === 0 ? (
-                    <h2>Your dashboard looks empty...<br/>Try uploading some beats, share your creativity!</h2>
-                ) : (
+               {posts.length === 0 ? (
+  <motion.h2
+    className="empty-dashboard-msg"
+    variants={fadeUp}
+    initial="hidden"
+    animate="visible"
+  >
+    Your dashboard looks empty...<br />
+    Try uploading some beats, share your creativity!
+  </motion.h2>
+) : (
+
                     <>
                     <div className="section-container">
-                        <h3>Recent Uploads</h3>
+                       <motion.h3 variants={fadeUp}>Recent Uploads</motion.h3>
                         <div className="cards-container">
                             {posts.sort((a, b) => new Date(b.publication_date).getTime() - new Date(a.publication_date).getTime()).map((post, index) => (
                             <motion.div
