@@ -195,41 +195,54 @@ function Upload() {
     };
 
     async function uploadBeat() {
-        setIsLoading(true); // Añade esta línea
-
-
-        const headers = {
-            accept: "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        };
-
+        // comprueba aquí mismo que tienes ambos archivos
+        if (!selectedImgFile || !selectedMusicFile) {
+            alert("Selecciona imagen y audio antes de subir.");
+            return;
+        }
+    
+        setIsLoading(true);
+    
         const formData = new FormData();
-        formData.append('cover_file', beat.beatPic as Blob);
-        formData.append('audio_file', beat.beatFile as Blob);
-        formData.append('description', beat.beatDescription);
-        formData.append('genre', beat.beatGenre);
-        formData.append('tags', JSON.stringify(beat.beatTags));
-        formData.append('moods', JSON.stringify(beat.beatMoods));
-        formData.append('instruments', JSON.stringify(beat.beatInstruments));
-        formData.append('bpm', beat.beatBpm.toString())
-        formData.append('title', beat.beatTitle);
-
+        // ⚠️ pasa el nombre del fichero como tercer parámetro
+        formData.append("cover_file", selectedImgFile, selectedImgFile.name);
+        formData.append("audio_file", selectedMusicFile, selectedMusicFile.name);
+    
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("genre", genre);
+        formData.append("tags", JSON.stringify(tags));
+        formData.append("moods", JSON.stringify(moods));
+        formData.append("instruments", JSON.stringify(instruments));
+        formData.append("bpm", bpmValue);
+    
+        // DEBUG opcional: confirma que entran Files
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value, value instanceof File ? "(File ✔️)" : "(no es File)");
+        }
+    
         try {
-            const response = await api.post('/posts/upload', formData, { headers });
+            const response = await api.post("/posts/upload", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
             if (response.status === 200) {
-                console.log('Beat uploaded successfully.');
+                console.log("Beat uploaded successfully.");
                 setMessage("Beat uploaded successfully.");
                 setShowPopup(true);
                 setSuccessfulUpload(true);
             }
         } catch (error) {
-            console.error('Error uploading beat:', error);
+            console.error("Error uploading beat:", error);
             setMessage("Error uploading beat. Please try again.");
             setShowPopup(true);
         } finally {
-            setIsLoading(false); // Añade esta línea
+            setIsLoading(false);
         }
     }
+
     const handleClose = () => {
         const token = localStorage.getItem("token");
         if (!token || !tokenExists) {
@@ -365,20 +378,17 @@ function Upload() {
     };
 
     const onFileInputChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files ? event.target.files[0] : null;
+        const file = event.target.files?.[0] ?? null;
         if (file) {
-            const fileType = file.type;
-            const validImageTypes = ['image/gif', 'image/jpeg', 'image/jpg'];
-            if (validImageTypes.includes(fileType)) {
+            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+            if (validImageTypes.includes(file.type)) {
                 setSelectedImgFile(file);
-                setBeat({
-                    ...beat,
-                    beatPic: file
-                });
-
-
+                setBeat(prev => ({ 
+                    ...prev, 
+                    beatPic: file 
+                }));
             } else {
-                setMessage("This file format is not supported.");
+                setMessage("This file format is not supported. Please upload .jpg, .png, or .gif");
                 setShowPopup(true);
             }
         }
@@ -416,9 +426,23 @@ function Upload() {
     const onDrop2 = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         setDragging(false);
-        const file = event.dataTransfer.files ? event.dataTransfer.files[0] : null;
-        setSelectedImgFile(file);
-    };
+        const file = event.dataTransfer.files?.[0] ?? null;
+        console.log("🛬 dropped file:", file);
+        if (file) {
+          const validImageTypes = ['image/gif','image/jpeg','image/png'];
+          if (validImageTypes.includes(file.type)) {
+            setSelectedImgFile(file);
+            setBeat(prev => ({ ...prev, beatPic: file }));
+          } else {
+            setMessage("This file format is not supported. Please upload .jpg, .png, or .gif");
+            setShowPopup(true);
+          }
+        }
+      };
+
+      useEffect(() => {
+        console.log("🔄 selectedImgFile cambió:", selectedImgFile);
+      }, [selectedImgFile]);
 
     const handleTagsChange = (tags: string[]) => {
         // Prepend '#' to each tag and remove spaces
@@ -644,8 +668,11 @@ function Upload() {
                                                 onChange={onFileInputChange2}/>
                                             {selectedImgFile ? (
                                                 <>
-                                                    <img src={URL.createObjectURL(selectedImgFile)} alt="Selected"
-                                                         className="selected-image"/>
+                                                    <img
+                                                        src={URL.createObjectURL(selectedImgFile)}
+                                                        alt="Selected"
+                                                        className="selected-image"
+                                                        />
                                                     <button onClick={removeImage} className="remove-image-button">×
                                                     </button>
                                                     <h5 className={`lower-centered-text ${selectedImgFile ? 'lower-centered-text-shadow' : ''}`}>Click

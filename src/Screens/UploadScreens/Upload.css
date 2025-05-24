@@ -231,6 +231,12 @@ input[type=number]::-webkit-inner-spin-button {
     max-height: 100%;
     object-fit: contain;
     object-position: center;
+    display: block;
+    height: auto;
+}
+
+.next-image-container.file-selected .selected-image {
+opacity: 1;
 }
 
 
@@ -425,5 +431,26 @@ input[type=number]::-webkit-inner-spin-button {
     background-color: rgba(255, 255, 255, 0.25); /* Inactive tab color */
 }
 
+/* Cuando ya hay imagen, quita el fondo de puntitos y oculta el texto */
+.next-image-container.file-selected {
+    background-image: none !important;
+  }
+  
+  /* Oculta los <h1> y <h5> de instrucciones */
+  .next-image-container.file-selected h1,
+  .next-image-container.file-selected h5 {
+    display: none !important;
+  }
+  
+  /* Asegura que la imagen esté por encima y se ajuste */
+  .next-image-container.file-selected .selected-image {
+    display: block !important;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    position: relative;
+    z-index: 1;
+  }
 
 
