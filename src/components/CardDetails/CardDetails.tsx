@@ -1,8 +1,8 @@
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from "framer-motion";
-import './CardDetails.css';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import './CardDetails.css';
 
 interface Post {
     title: string;

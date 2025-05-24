@@ -26,6 +26,9 @@ interface Post {
     cover_format: string;
 }
 
+const API_BASE    = import.meta.env.VITE_API_BASE_URL!; 
+const STATIC_BASE = API_BASE.replace(/\/v1\/api\/?$/, ''); 
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (delay = 0) => ({
@@ -202,7 +205,7 @@ function Dashboard() {
                                 exit={{ opacity: 0, y: 50 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <img className="post-picture" src={`http://172.203.251.28/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
+                                <img className="post-picture" src={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
                                 <h4><b>{post.title}</b></h4>
                                 <p>{new Date(post.publication_date).toLocaleDateString()}</p>
                             </motion.div>
@@ -224,7 +227,7 @@ function Dashboard() {
                                 exit={{ opacity: 0, y: 50 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <img className="post-picture" src={`http://172.203.251.28/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
+                                <img className="post-picture" src={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
                                 <h4><b>{post.title}</b></h4>
                                 <p>{new Date(post.publication_date).toLocaleDateString()}</p>
                             </motion.div>
@@ -238,8 +241,8 @@ function Dashboard() {
                 {selectedPost && selectedLayoutId && (
                     <CardDetails
                         post={selectedPost}
-                        image={`http://172.203.251.28/beatnow/${UserSingleton.getInstance().getId()}/posts/${selectedPost._id}/caratula.${selectedPost.cover_format}`}
-                        audio={`http://172.203.251.28/beatnow/${UserSingleton.getInstance().getId()}/posts/${selectedPost._id}/audio.${selectedPost.audio_format}`}
+                        image={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${selectedPost._id}/caratula.${selectedPost.cover_format}`}
+                        audio={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${selectedPost._id}/audio.${selectedPost.audio_format}`}
                         layoutId={selectedLayoutId}
                         onClose={handleCloseCardDetails} />
                 )}
