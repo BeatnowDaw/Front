@@ -67,7 +67,7 @@ function App() {
                 <Route path={"/ForgotPwd"} element={<ForgotPwdPage />} />
                 <Route path={"/"} element={<Landing />} />
                 <Route path={"/Explore"} element={<Explore />} />
-                <Route path={"/Profile"} element={<Profile />} />
+                <Route path="/profile/:userId" element={<Profile />} />
             </Routes>
         </Router>
     );

@@ -145,8 +145,8 @@ function Explore() {
         >
           <div className={styles.cardOverlay}>
             <h4>{post.title}</h4>
-            <p>{post.genre} — {new Date(post.publication_date).toLocaleDateString()}</p>
-            <span className={styles.likes}>{post.likes} ❤️</span>
+            <p>{post.genre} — {post.bpm} bpm</p>
+            <span className={styles.likes}>{post.likes}  <i className="fa-so lid fa-heart"></i></span>
             <div className={styles.cardUser}>
               <img
                 src={`https://ui-avatars.com/api/?name=${UserSingleton.getInstance().getUsername()}&background=8731e4&color=fff&size=128`}
