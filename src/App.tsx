@@ -7,9 +7,11 @@ import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-route
 import './App.css';
 import Dashboard from "./Screens/DashboardPage/Dashboard";
 import ForgotPwdPage from "./Screens/ForgotPwd Page/ForgotPwdPage";
-import Home from './Screens/HomePage/HomePage';
+// import Home from './Screens/HomePage/HomePage';
+import Explore from './Screens/ExploreScreen/Explore';
 import Landing from "./Screens/Landing Page/LandingPage";
 import LoginPage from './Screens/Login Page/LoginPage';
+import Profile from './Screens/ProfilePage/ProfileScreen';
 import SignUpPage from "./Screens/Sign Up Page/SignUpPage";
 import Upload from "./Screens/UploadScreens/Upload";
 import VideoPageContainer from './Screens/VideoPage/VideoPageContainer';
@@ -66,8 +68,10 @@ function App() {
                 <Route path={"/Dashboard"} element={<Dashboard />} />
                 <Route path={"/ForgotPwd"} element={<ForgotPwdPage />} />
                 <Route path={"/"} element={<Landing />} />
-                <Route path={"/Home"} element={<Home />} />
+                {/* <Route path={"/Home"} element={<Home />} /> */}
                 <Route path="/video/:id" element={<VideoPageContainer />} />
+                <Route path={"/Explore"} element={<Explore />} />
+                <Route path={"/Profile"} element={<Profile />} />
             </Routes>
         </Router>
     );
