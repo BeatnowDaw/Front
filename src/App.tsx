@@ -2,18 +2,20 @@
 
 // APIS: http://217.182.70.161:6969/docs#/
 
-import React, { useEffect, useState, useRef } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import LoginPage from './Screens/Login Page/LoginPage';
-import Landing from "./Screens/Landing Page/LandingPage";
-import SignUpPage from "./Screens/Sign Up Page/SignUpPage";
+import { useEffect, useRef, useState } from 'react';
+import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
 import './App.css';
-import Upload from "./Screens/UploadScreens/Upload";
 import Dashboard from "./Screens/DashboardPage/Dashboard";
-import CustomPopup from './components/Popup/CustomPopup';
 import ForgotPwdPage from "./Screens/ForgotPwd Page/ForgotPwdPage";
+// import Home from './Screens/HomePage/HomePage';
 import Explore from './Screens/ExploreScreen/Explore';
+import Landing from "./Screens/Landing Page/LandingPage";
+import LoginPage from './Screens/Login Page/LoginPage';
 import Profile from './Screens/ProfilePage/ProfileScreen';
+import SignUpPage from "./Screens/Sign Up Page/SignUpPage";
+import Upload from "./Screens/UploadScreens/Upload";
+import VideoPageContainer from './Screens/VideoPage/VideoPageContainer';
+import CustomPopup from './components/Popup/CustomPopup';
 
 const CheckToken = () => {
     const timeout = 3000;
@@ -66,6 +68,8 @@ function App() {
                 <Route path={"/Dashboard"} element={<Dashboard />} />
                 <Route path={"/ForgotPwd"} element={<ForgotPwdPage />} />
                 <Route path={"/"} element={<Landing />} />
+                {/* <Route path={"/Home"} element={<Home />} /> */}
+                <Route path="/video/:id" element={<VideoPageContainer />} />
                 <Route path={"/Explore"} element={<Explore />} />
                 <Route path="/profile/:userId" element={<Profile />} />
             </Routes>

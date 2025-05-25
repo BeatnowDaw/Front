@@ -141,11 +141,12 @@ function Dashboard() {
         navigate("/Upload", { state: { token: localStorage.getItem("token") } });
     }
 
-    const handleCardClick = (postId: string, layoutId: string) => {
+    const handleCardClick = (postId: string) => {
         // printar a consola todos los detalles del post
         console.log(posts.find(post => post._id === postId));
-        setSelectedPostId(postId);
-        setSelectedLayoutId(layoutId);
+        // setSelectedPostId(postId);
+        // setSelectedLayoutId(layoutId);
+        navigate(`/video/${postId}`);
     };
 
     const handleCloseCardDetails = () => {
@@ -199,12 +200,21 @@ function Dashboard() {
                                 className={`card ${selectedLayoutId === `post-${index}` ? 'hidden' : ''}`}
                                 key={post._id}
                                 layoutId={`post-${index}`}
-                                onClick={() => handleCardClick(post._id, `post-${index}`)}
+                                onClick={() => handleCardClick(post._id)}
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 50 }}
                                 transition={{ duration: 0.3 }}
                             >
+                                <button
+                                    className="card-play-btn"
+                                    onClick={e => {
+                                    e.stopPropagation();
+                                    navigate(`/video/${post._id}`);
+                                    }}
+                                >
+                                    ▶
+                                </button>
                                 <img className="post-picture" src={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
                                 <h4><b>{post.title}</b></h4>
                                 <p>{new Date(post.publication_date).toLocaleDateString()}</p>
@@ -221,12 +231,21 @@ function Dashboard() {
                                 className={`card ${selectedLayoutId === `popular-${index}` ? 'hidden' : ''}`}
                                 key={post._id}
                                 layoutId={`popular-${index}`}
-                                onClick={() => handleCardClick(post._id, `popular-${index}`)}
+                                onClick={() => handleCardClick(post._id)}
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 50 }}
                                 transition={{ duration: 0.3 }}
                             >
+                                <button
+                                    className="card-play-btn"
+                                    onClick={e => {
+                                    e.stopPropagation();
+                                    navigate(`/video/${post._id}`);
+                                    }}
+                                >
+                                    ▶
+                                </button>
                                 <img className="post-picture" src={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
                                 <h4><b>{post.title}</b></h4>
                                 <p>{new Date(post.publication_date).toLocaleDateString()}</p>

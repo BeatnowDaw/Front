@@ -1,0 +1,213 @@
+.vp-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: #0d0d0d;
+    overflow: hidden;
+  }
+  
+  .vp-video-wrapper {
+    flex: 2;
+    position: relative;
+    background: #000;
+  }
+  
+  .vp-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 20;
+  }
+  
+  .vp-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .vp-video-wrapper .react-player__preview {
+    filter: brightness(0.6) contrast(1.1);
+  }
+  
+  .vp-info {
+    flex: 1;
+    margin: 40px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    color: #fff;
+    overflow-y: auto;
+  }
+  
+  .vp-title {
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .vp-author {
+    color: #aaa;
+    margin-bottom: 1rem;
+  }
+  
+  .vp-tags .vp-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    margin-right: 0.5rem;
+    color: #d9d9d9;
+    font-size: 0.9rem;
+  }
+  
+  .vp-stats {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .vp-description {
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  
+  .vp-progress-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    margin: 20px 0;
+  }
+  
+  .vp-progress {
+    background: linear-gradient(90deg, #8a2be2, #cf6ef8);
+    height: 100%;
+  }
+  
+  .vp-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .vp-controls button {
+    background: linear-gradient(90deg, #77298f, #b65edd);
+    border: none;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .vp-comment-box {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .vp-comment-box input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 0.8rem 1rem;
+  }
+  
+  .vp-comment-box button {
+    background: #8a2be2;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .vp-cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .vp-close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 20;
+  }
+
+  .vp-close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(90deg, #77298f, #b65edd);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    z-index: 20;
+  }
+  .vp-close-btn:hover {
+    filter: brightness(1.1);
+  }
+  
+  /* Limita el tamaño de la portada en audio-only */
+  .vp-cover-image {
+    display: block;
+    max-width: 400px;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    margin: 60px auto;  /* separa del botón y centra */
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  }
+  
+  /* Para que el wrapper centre el cover en audio-only */
+  .vp-video-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+  }
+  
+  /* Ajuste opcional: si quieres que el vídeo mantenga proporción 16:9 y no ocupe todo el ancho */
+  .vp-video-wrapper:not(.audio-only) {
+    width: 65vw;
+    max-width: 1000px;
+    aspect-ratio: 16/9;
+    margin-bottom: 1.5rem;
+  }
