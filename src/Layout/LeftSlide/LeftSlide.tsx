@@ -28,10 +28,9 @@ function LeftSlide() {
         {isVisible && (
             <>
               <ul className="menu">
-                <li className="menu-item slide-in"><i className="fa-solid fa-house"></i><Link to="/Home" style={{ textDecoration: 'none', color: 'white', width: '100%' }}>Home</Link></li>
-                <li className="menu-item slide-in"><i className="fa-solid fa-music"></i>Explore</li>
-                <li className="menu-item slide-in"><i className="fa-solid fa-chart-column"></i>Following</li>
-                <li className="menu-item slide-in"><i className="fa-solid fa-user"></i>Profile</li>
+                <li className="menu-item slide-in"><i className="fa-solid fa-chart-column"></i><Link to="/Dashboard" style={{ textDecoration: 'none', color: 'white', width: '100%' }}>Dashboard</Link></li>
+                <li className="menu-item slide-in"><i className="fa-solid fa-compass"></i><Link to="/Explore" style={{ textDecoration: 'none', color: 'white', width: '100%' }}>Explore</Link></li>
+                <li className="menu-item slide-in"><i className="fa-solid fa-user"></i><Link to="/Profile" style={{ textDecoration: 'none', color: 'white', width: '100%' }}>Profile</Link></li>
                 <li className="menu-item slide-in"><i className="fa-solid fa-heart"></i>Saves</li>
               </ul>
               <Link to="/Upload" className={`uploadBeat ${isVisible ? 'slide-in' : 'slide-out'}`}>Upload</Link>
