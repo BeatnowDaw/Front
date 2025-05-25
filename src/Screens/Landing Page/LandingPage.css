@@ -31,10 +31,14 @@ html {
     color: #fff;
 }
 
-
 main {
     display: flex;
+    justify-content: center; /* centra horizontalmente */
+    align-items: center;     /* centra verticalmente si deseas */
+    width: 100%;
+    padding: 5%;
 }
+
 
 
 .main {
