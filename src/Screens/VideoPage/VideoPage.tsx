@@ -1,4 +1,3 @@
-// src/components/VideoPage/VideoPage.tsx
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
@@ -10,6 +9,8 @@ interface VideoPageProps {
   coverImageUrl: string;
   title: string;
   author: string;
+  authorId: string;
+  avatarUrl?: string;
   tags: string[];
   likes: number;
   saves: number;
@@ -21,6 +22,8 @@ const VideoPage: React.FC<VideoPageProps> = ({
   coverImageUrl,
   title,
   author,
+  authorId,
+  avatarUrl,
   tags,
   likes,
   saves,
@@ -30,8 +33,9 @@ const VideoPage: React.FC<VideoPageProps> = ({
   const [played, setPlayed] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Detecta si la URL es solo audio
   const isAudioOnly = /\.(mp3|wav)$/i.test(videoUrl);
+
+  const goToProfile = () => navigate(`/profile/${authorId}`);
 
   return (
     <motion.div
@@ -103,7 +107,15 @@ const VideoPage: React.FC<VideoPageProps> = ({
         transition={{ delay: 0.3 }}
       >
         <h1 className="vp-title">{title}</h1>
-        <p className="vp-author">by <b>{author}</b></p>
+
+        <div className="vp-author-container" onClick={goToProfile}>
+          {avatarUrl ? (
+            <img src={avatarUrl} alt={author} className="vp-author-avatar" />
+          ) : (
+            <div className="vp-author-avatar placeholder" />
+          )}
+          <span className="vp-author-text">by <b>{author}</b></span>
+        </div>
 
         <div className="vp-tags">
           {tags.map((t) => (

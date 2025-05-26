@@ -70,12 +70,15 @@
   
   .vp-tags .vp-tag {
     display: inline-block;
-    background: rgba(255,255,255,0.1);
-    padding: 0.3rem 0.6rem;
-    border-radius: 12px;
+    background: linear-gradient(90deg, #77298f, #b65edd);
+    padding: 0rem 1.5rem;
+    border-radius: 20px;
     margin-right: 0.5rem;
     color: #d9d9d9;
     font-size: 0.9rem;
+    font-weight: bold;
+    cursor: default;             
+    user-select: none;   
   }
   
   .vp-stats {
@@ -210,4 +213,57 @@
     max-width: 1000px;
     aspect-ratio: 16/9;
     margin-bottom: 1.5rem;
+  }
+
+  
+.vp-author-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .vp-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    object-fit: cover;
+    border: 2px solid #3C0F4B;
+  }
+  
+  .vp-author {
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .vp-author:hover,
+  .vp-avatar:hover {
+    opacity: 0.8;
+  }
+
+   /* Autor y avatar */
+   .vp-author-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  
+  .vp-author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fe2c55;
+  }
+  
+  .vp-author-avatar.placeholder {
+    background: #333;
+  }
+  
+  .vp-author-text {
+    font-size: 1rem;
+    color: #ccc;
   }

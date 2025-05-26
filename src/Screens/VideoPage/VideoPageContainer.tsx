@@ -39,14 +39,16 @@ export default function VideoPageContainer() {
 
   return (
     <VideoPage
-      videoUrl={`${STATIC}/beatnow/${user_id}/posts/${_id}/audio.${audio_format}`}
-      coverImageUrl={`${STATIC}/beatnow/${user_id}/posts/${_id}/caratula.${cover_format}`}
-      title={title}
-      author={creator_username}
-      tags={tags}
-      likes={likes}
-      saves={saves}
-      description={description}
-    />
+        videoUrl={`${STATIC}/beatnow/${user_id}/posts/${_id}/audio.${audio_format}`}
+        coverImageUrl={`${STATIC}/beatnow/${user_id}/posts/${_id}/caratula.${cover_format}`}
+        title={title}
+        author={creator_username}
+        authorId={user_id}               
+                
+        tags={tags}
+        likes={likes}
+        saves={saves}
+        description={description}
+        />
   );
 }
