@@ -7,7 +7,6 @@ import UserSingleton from "../../Model/UserSingleton";
 import api from "../../api/client";
 import CustomPopup from "../../components/Popup/CustomPopup";
 import styles from "./ProfileScreen.module.css";
-import beat1 from "../../../public/beat1.png"; // imagen temporal para beats
 
 interface Beat {
   _id: string;
@@ -73,7 +72,7 @@ function Profile() {
         {profileData && (
           <>
             <div className={styles.profileHeader}>
-              <img src={profileData.avatar || beat1} alt="Avatar" className={styles.profileAvatar} />
+              <img src={profileData.avatar } alt="Avatar" className={styles.profileAvatar} />
               <div className={styles.profileInfo}>
                 <h2>@{profileData.username} <span className={styles.verified}>✔</span></h2>
 {profileData.username !== UserSingleton.getInstance().getUsername() && (
@@ -118,7 +117,7 @@ function Profile() {
                       src={`http://localhost:8001/beatnow/${userId}/posts/${post._id}/caratula.${post.cover_format}`}
                       alt={post.title}
                       className={styles.videoThumbnail}
-                      onError={(e) => (e.currentTarget.src = beat1)}
+
                     />
                     <span className={styles.videoViews}>▶ {post.views?.toLocaleString() ?? "0"}</span>
                   </div>

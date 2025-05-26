@@ -141,12 +141,9 @@ function Dashboard() {
         navigate("/Upload", { state: { token: localStorage.getItem("token") } });
     }
 
-    const handleCardClick = (postId: string) => {
-        // printar a consola todos los detalles del post
-        console.log(posts.find(post => post._id === postId));
-        // setSelectedPostId(postId);
-        // setSelectedLayoutId(layoutId);
-        navigate(`/video/${postId}`);
+    const handleCardClick = (postId: string, layoutId: string) => {
+        setSelectedPostId(postId);
+        setSelectedLayoutId(layoutId);
     };
 
     const handleCloseCardDetails = () => {
@@ -200,7 +197,7 @@ function Dashboard() {
                                 className={`card ${selectedLayoutId === `post-${index}` ? 'hidden' : ''}`}
                                 key={post._id}
                                 layoutId={`post-${index}`}
-                                onClick={() => handleCardClick(post._id)}
+                                onClick={() => handleCardClick(post._id, `post-${index}`)}
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 50 }}
@@ -215,7 +212,7 @@ function Dashboard() {
                                 >
                                     ▶
                                 </button>
-                                <img className="post-picture" src={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
+                                <img className="post-picture" src={`http://127.0.0.1/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
                                 <h4><b>{post.title}</b></h4>
                                 <p>{new Date(post.publication_date).toLocaleDateString()}</p>
                             </motion.div>
@@ -231,7 +228,7 @@ function Dashboard() {
                                 className={`card ${selectedLayoutId === `popular-${index}` ? 'hidden' : ''}`}
                                 key={post._id}
                                 layoutId={`popular-${index}`}
-                                onClick={() => handleCardClick(post._id)}
+                                onClick={() => handleCardClick(post._id, `post-${index}`)}
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 50 }}
@@ -246,7 +243,7 @@ function Dashboard() {
                                 >
                                     ▶
                                 </button>
-                                <img className="post-picture" src={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
+                                <img className="post-picture" src={`http://127.0.0.1/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
                                 <h4><b>{post.title}</b></h4>
                                 <p>{new Date(post.publication_date).toLocaleDateString()}</p>
                             </motion.div>
@@ -260,8 +257,8 @@ function Dashboard() {
                 {selectedPost && selectedLayoutId && (
                     <CardDetails
                         post={selectedPost}
-                        image={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${selectedPost._id}/caratula.${selectedPost.cover_format}`}
-                        audio={`${STATIC_BASE}/beatnow/${UserSingleton.getInstance().getId()}/posts/${selectedPost._id}/audio.${selectedPost.audio_format}`}
+                        image={`http://127.0.0.1/beatnow/${UserSingleton.getInstance().getId()}/posts/${selectedPost._id}/caratula.${selectedPost.cover_format}`}
+                        audio={`http://127.0.0.1/beatnow/${UserSingleton.getInstance().getId()}/posts/${selectedPost._id}/audio.${selectedPost.audio_format}`}
                         layoutId={selectedLayoutId}
                         onClose={handleCloseCardDetails} />
                 )}
