@@ -11,9 +11,18 @@ import styles from "./ProfileScreen.module.css";
 interface Beat {
   _id: string;
   title: string;
+  description?: string;
+  tags: string[];
+  genre: string;
+  moods: string[];
+  instruments: string[];
+  bpm: number;
+  user_id: string;
   publication_date: string;
-  views: number;
+  audio_format: string;
   cover_format: string;
+  likes: number;
+  saves: number;
 }
 
 interface UserProfile {
@@ -46,10 +55,21 @@ function Profile() {
       }
 
       try {
-        const res = await api.get(`/users/profile/${userId}`, {
+        // Fetch user profile data
+        const profileResponse = await api.get(`/users/profile/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setProfileData(res.data);
+
+        // Fetch user posts data using the username from the profile
+        const postsResponse = await api.get(`/users/posts/${profileResponse.data.username}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        // Combine profile and posts data
+        setProfileData({
+          ...profileResponse.data,
+          posts: postsResponse.data,
+        });
       } catch (err) {
         console.error("Error fetching profile:", err);
         setMessage("Failed to load profile.");
@@ -72,15 +92,19 @@ function Profile() {
         {profileData && (
           <>
             <div className={styles.profileHeader}>
-              <img src={profileData.avatar } alt="Avatar" className={styles.profileAvatar} />
+              <img
+                src={profileData.avatar || ""}
+                alt="Avatar"
+                className={styles.profileAvatar}
+              />
               <div className={styles.profileInfo}>
-                <h2>@{profileData.username} <span className={styles.verified}>✔</span></h2>
-{profileData.username !== UserSingleton.getInstance().getUsername() && (
-  <div className={styles.actions}>
-    <button className={styles.followBtn}>Seguir</button>
-    <button className={styles.messageBtn}>Mensaje</button>
-  </div>
-)}
+                <h2>@{profileData.username}</h2>
+                {profileData.username !== UserSingleton.getInstance().getUsername() && (
+                  <div className={styles.actions}>
+                    <button className={styles.followBtn}>Seguir</button>
+                    <button className={styles.messageBtn}>Mensaje</button>
+                  </div>
+                )}
 
                 <p className={styles.stats}>
                   {profileData.following} Siguiendo · {profileData.followers} Seguidores · {profileData.likes} Me gusta
@@ -91,8 +115,6 @@ function Profile() {
 
             <div className={styles.tabs}>
               <span className={`${styles.tab} ${styles.active}`}>Vídeos</span>
-              <span className={styles.tab}>Compartidos</span>
-              <span className={styles.tab}>Me gusta</span>
             </div>
           </>
         )}
@@ -114,12 +136,11 @@ function Profile() {
                 >
                   <div className={styles.videoWrapper}>
                     <img
-                      src={`http://localhost:8001/beatnow/${userId}/posts/${post._id}/caratula.${post.cover_format}`}
+                      src={`http://localhost/beatnow/${userId}/posts/${post._id}/caratula.${post.cover_format}`}
                       alt={post.title}
                       className={styles.videoThumbnail}
-
+                      onClick={() => navigate(`/video/${post._id}`)}
                     />
-                    <span className={styles.videoViews}>▶ {post.views?.toLocaleString() ?? "0"}</span>
                   </div>
                 </motion.div>
               ))}
