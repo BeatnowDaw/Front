@@ -25,6 +25,7 @@
     width: fit-content;
     min-width: fit-content !important;
     position: relative;
+    overflow: hidden;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -140,3 +141,32 @@
     justify-content: start;
     max-width: 100%;
 }
+
+/* Botón de eliminar oculto por defecto */
+.delete-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 1.1rem;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, background 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20; 
+  }
+
+  .card:hover .delete-btn {
+    opacity: 1;
+  }
+  
+  .delete-btn:hover {
+    background: #6610f2;
+  }
