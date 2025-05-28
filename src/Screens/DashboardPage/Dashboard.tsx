@@ -156,7 +156,7 @@ function Dashboard() {
         ) : (
           <>
             <div className="section-container">
-              <motion.h3 variants={fadeUp}>Recent Uploads</motion.h3>
+              <motion.h3 variants={fadeUp}>Your Uploads</motion.h3>
               <div className="cards-container">
                 {posts.map((post, i) => (
                   <motion.div key={post._id}
@@ -172,13 +172,6 @@ function Dashboard() {
                     <p>{new Date(post.publication_date).toLocaleDateString()}</p>
                   </motion.div>
                 ))}
-              </div>
-            </div>
-
-            <div className="section-container">
-              <motion.h3 variants={fadeUp}>Popular Uploads</motion.h3>
-              <div className="cards-container">
-                {/* similar al anterior */}
               </div>
             </div>
           </>
