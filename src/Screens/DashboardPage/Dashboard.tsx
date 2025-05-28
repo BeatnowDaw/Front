@@ -219,37 +219,6 @@ function Dashboard() {
                             ))}
                         </div>
                     </div>
-
-                    <div className="section-container">
-                        <h3>Popular Uploads</h3>
-                        <div className="cards-container">
-                            {popularPosts.map((post, index) => (
-                            <motion.div
-                                className={`card ${selectedLayoutId === `popular-${index}` ? 'hidden' : ''}`}
-                                key={post._id}
-                                layoutId={`popular-${index}`}
-                                onClick={() => handleCardClick(post._id, `post-${index}`)}
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 50 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <button
-                                    className="card-play-btn"
-                                    onClick={e => {
-                                    e.stopPropagation();
-                                    navigate(`/video/${post._id}`);
-                                    }}
-                                >
-                                    ▶
-                                </button>
-                                <img className="post-picture" src={`http://127.0.0.1/beatnow/${UserSingleton.getInstance().getId()}/posts/${post._id}/caratula.${post.cover_format}`} alt="Post" />
-                                <h4><b>{post.title}</b></h4>
-                                <p>{new Date(post.publication_date).toLocaleDateString()}</p>
-                            </motion.div>
-                            ))}
-                        </div>
-                    </div>
                     </>
                 )}
             </div>

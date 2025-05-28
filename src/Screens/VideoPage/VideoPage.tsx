@@ -97,7 +97,7 @@ const VideoPage: React.FC<VideoPageProps> = ({
               </button>
             )}
           </>
-        )}
+        )}  
       </div>
 
       <motion.div
@@ -110,7 +110,7 @@ const VideoPage: React.FC<VideoPageProps> = ({
 
         <div className="vp-author-container" onClick={goToProfile}>
           {avatarUrl ? (
-            <img src={avatarUrl} alt={author} className="vp-author-avatar" />
+            <img src={`http://127.0.0.1/beatnow/${authorId}/photo_profile/photo_profile.jpg`} alt={author} className="vp-author-avatar" />
           ) : (
             <div className="vp-author-avatar placeholder" />
           )}

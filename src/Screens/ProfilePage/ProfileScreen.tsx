@@ -92,26 +92,27 @@ function Profile() {
         {profileData && (
           <>
             <div className={styles.profileHeader}>
-              <img
-                src={profileData.avatar || ""}
-                alt="Avatar"
-                className={styles.profileAvatar}
-              />
-              <div className={styles.profileInfo}>
-                <h2>@{profileData.username}</h2>
-                {profileData.username !== UserSingleton.getInstance().getUsername() && (
-                  <div className={styles.actions}>
-                    <button className={styles.followBtn}>Seguir</button>
-                    <button className={styles.messageBtn}>Mensaje</button>
-                  </div>
-                )}
+  <img
+    src={`http://127.0.0.1/beatnow/${userId}/photo_profile/photo_profile.png`}
+    alt="Avatar"
+    className={styles.profileAvatar}
+  />
+  <div className={styles.profileInfo}>
+    <h2>@{profileData.username}</h2>
+    {profileData.username !== UserSingleton.getInstance().getUsername() && (
+      <div className={styles.actions}>
+        <button className={styles.followBtn}>Seguir</button>
+        <button className={styles.messageBtn}>Mensaje</button>
+      </div>
+    )}
 
-                <p className={styles.stats}>
-                  {profileData.following} Siguiendo · {profileData.followers} Seguidores · {profileData.likes} Me gusta
-                </p>
-                <p className={styles.bio}>{profileData.bio}</p>
-              </div>
-            </div>
+    <p className={styles.stats}>
+      {profileData.following} Siguiendo · {profileData.followers} Seguidores · {profileData.likes} Me gusta
+    </p>
+    <p className={styles.bio}>{profileData.bio}</p>
+  </div>
+</div>
+
 
             <div className={styles.tabs}>
               <span className={`${styles.tab} ${styles.active}`}>Vídeos</span>

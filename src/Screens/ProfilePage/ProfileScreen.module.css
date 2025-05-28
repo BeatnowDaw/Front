@@ -29,7 +29,7 @@
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #fe2c55;
+  border: 3px solid #3C0F4B;
 }
 
 .profileInfo {
@@ -69,12 +69,12 @@
 }
 
 .followBtn {
-  background-color: #fe2c55;
+  background-color: #3C0F4B;
   color: white;
 }
 
 .messageBtn {
-  background-color: #3c3c3c;
+  background-color: #3C0F4B;
   color: white;
 }
 
